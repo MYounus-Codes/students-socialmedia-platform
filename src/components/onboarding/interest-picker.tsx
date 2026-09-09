@@ -46,7 +46,7 @@ export function InterestPicker() {
       <div className="mb-8">
         <p className="text-sm font-medium uppercase tracking-[0.18em] text-emerald-700">Onboarding</p>
         <h1 className="mt-3 text-4xl font-semibold text-slate-900">Pick your interests</h1>
-        <p className="mt-3 max-w-2xl text-slate-600">Choose the topics that matter to you so Campusly can personalize your home feed and discovery experience.</p>
+        <p className="mt-3 max-w-2xl text-slate-600">Choose the topics that matter to you so PreezaX can personalize your home feed and discovery experience.</p>
       </div>
 
       {error ? <p role="alert" className="mb-5 rounded-2xl bg-red-50 p-3 text-sm text-red-700">{error}</p> : null}

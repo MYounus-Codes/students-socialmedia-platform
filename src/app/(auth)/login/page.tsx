@@ -51,7 +51,7 @@ export default function LoginPage() {
     <main className="flex min-h-screen items-center justify-center bg-[radial-gradient(circle_at_top_left,_#e2f4e9,_transparent_40%),#f4f6f2] p-6">
       <div className="w-full max-w-md rounded-[2rem] border border-slate-200/80 bg-[var(--card)] p-8 shadow-[0_24px_70px_rgba(37,69,57,0.12)] md:p-10">
         <div className="mb-8 space-y-2">
-          <p className="text-xs font-extrabold uppercase tracking-[0.24em] text-emerald-700">Campusly</p>
+          <p className="text-xs font-extrabold uppercase tracking-[0.24em] text-emerald-700">PreezaX</p>
           <h1 className="text-4xl font-semibold leading-none text-slate-900">Welcome back</h1>
           <p className="text-sm text-slate-600">Log in to continue your community journey.</p>
         </div>

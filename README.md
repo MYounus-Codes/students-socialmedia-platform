@@ -1,9 +1,9 @@
-# Campusly
+# PreezaX
 
-Campusly is a student-first social platform for connecting, sharing, learning, and collaborating across academic communities.
+PreezaX is a student-first social platform for connecting, sharing, learning, and collaborating across academic communities.
 
 ## Overview
-Campusly helps students:
+PreezaX helps students:
 - build a profile
 - follow peers and mentors
 - share posts, ideas, projects, and problems

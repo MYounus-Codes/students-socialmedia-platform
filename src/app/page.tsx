@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -7,8 +8,8 @@ export default function LandingPage() {
     <main className="min-h-screen bg-[radial-gradient(circle_at_top,_#f0fdf4,_#f8fafc_40%,_#eef2ff_100%)]">
       <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
         <div className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-700 text-sm font-bold text-white">C</div>
-          <span className="text-xl font-semibold text-slate-900">Campusly</span>
+          <Image src="/icon.svg" alt="PreezaX" width={40} height={40} priority className="h-10 w-10 rounded-xl" />
+          <span className="text-xl font-semibold text-slate-900">PreezaX</span>
         </div>
 
         <nav className="hidden items-center gap-6 text-sm text-slate-600 md:flex">
@@ -20,7 +21,7 @@ export default function LandingPage() {
         <div className="flex items-center gap-3">
           <Link href="/login" className="text-sm font-medium text-slate-700">Log in</Link>
           <Button asChild>
-            <Link href="/signup">Join Campusly</Link>
+            <Link href="/signup">Join PreezaX</Link>
           </Button>
         </div>
       </header>
@@ -34,7 +35,7 @@ export default function LandingPage() {
             Discover, build, and connect with students who move ideas forward.
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
-            Campusly brings together projects, learning resources, problems, ideas, and community conversations in one modern student platform.
+            PreezaX brings together projects, learning resources, problems, ideas, and community conversations in one modern student platform.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">

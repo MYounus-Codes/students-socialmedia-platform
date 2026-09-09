@@ -108,7 +108,7 @@ export function PostCard({ post, viewerId, onChanged }: PostCardProps) {
     }
   }
 
-  const authorName = post.author?.full_name ?? "Campusly student";
+  const authorName = post.author?.full_name ?? "PreezaX student";
   const username = post.author?.username ?? "student";
 
   return (

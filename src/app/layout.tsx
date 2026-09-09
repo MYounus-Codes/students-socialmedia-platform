@@ -15,8 +15,14 @@ const interfaceFont = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Campusly",
+  title: "PreezaX",
   description: "A student-first social platform for discovery, projects, and learning.",
+  applicationName: "PreezaX",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({

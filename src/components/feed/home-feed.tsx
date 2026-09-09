@@ -45,7 +45,7 @@ export function HomeFeed() {
     <main className="mx-auto max-w-7xl px-4 py-8 md:px-6 lg:py-10">
       <header className="mb-8 flex items-center justify-between">
         <div>
-          <p className="text-xs font-extrabold uppercase tracking-[0.24em] text-emerald-700">Campusly / Home</p>
+          <p className="text-xs font-extrabold uppercase tracking-[0.24em] text-emerald-700">PreezaX / Home</p>
           <h1 className="mt-2 text-4xl font-semibold leading-none text-slate-900 md:text-5xl">Your campus, in motion.</h1>
         </div>
         <Button variant="outline" size="sm" onClick={logout}><LogOut className="h-4 w-4" /> Log out</Button>
