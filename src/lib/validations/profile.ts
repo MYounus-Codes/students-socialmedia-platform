@@ -12,6 +12,8 @@ export const profileUpdateSchema = z.object({
   website: optionalUrl,
   github_url: optionalUrl,
   linkedin_url: optionalUrl,
+  avatar_url: z.string().url().max(500).optional(),
+  cover_url: z.string().url().max(500).optional(),
 });
 
 export type ProfileUpdateInput = z.infer<typeof profileUpdateSchema>;

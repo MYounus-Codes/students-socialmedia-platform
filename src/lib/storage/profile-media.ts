@@ -15,15 +15,23 @@ export async function uploadProfileImage(userId: string, file: File, kind: Profi
 
   const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";
   const path = `${userId}/${kind}.${extension}`;
-  const { data, error } = await supabase.storage.from(kind === "avatar" ? "avatars" : "covers").upload(path, file, {
+  const bucket = kind === "avatar" ? "avatars" : "covers";
+
+  const { data, error } = await supabase.storage.from(bucket).upload(path, file, {
     cacheControl: "3600",
     contentType: file.type,
     upsert: true,
   });
 
-  if (error || !data) throw new Error(error?.message ?? "Unable to upload image.");
+  if (error || !data) {
+    console.error("Storage upload error:", { bucket, path, error, fileType: file.type, fileSize: file.size });
+    throw new Error(error?.message ?? "Unable to upload image.");
+  }
 
-  const bucket = kind === "avatar" ? "avatars" : "covers";
   const { data: publicUrl } = supabase.storage.from(bucket).getPublicUrl(data.path);
+  if (!publicUrl?.publicUrl) {
+    console.error("Failed to get public URL:", { bucket, path: data.path });
+    throw new Error("Unable to get public URL for uploaded image.");
+  }
   return publicUrl.publicUrl;
 }

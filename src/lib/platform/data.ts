@@ -282,7 +282,30 @@ export async function getComments(postId: string) {
 export async function updateProfile(userId: string, input: unknown) {
   const parsed = profileUpdateSchema.safeParse(input);
   if (!parsed.success) throw new Error(parsed.error.issues[0]?.message ?? "Invalid profile data.");
+  
+  const { data: authData, error: authError } = await supabase.auth.getUser();
+  if (authError || !authData.user) {
+    throw new Error("You must be signed in to update profile.");
+  }
+  if (authData.user.id !== userId) {
+    throw new Error("You can only update your own profile.");
+  }
+
   const { data, error } = await supabase.from("profiles").update(parsed.data).eq("id", userId).select().single();
-  if (error) throw new Error(error.message);
+  if (error) {
+    console.error("Profile update error:", { 
+      userId, 
+      input: parsed.data, 
+      error, 
+      errorCode: error.code,
+      errorDetails: error.details,
+      errorHint: error.hint,
+      authUserId: authData.user.id 
+    });
+    throw new Error(error.message ?? `Database error (code: ${error.code})`);
+  }
+  if (!data) {
+    throw new Error("Profile update returned no data. Check RLS policies.");
+  }
   return data as Profile;
 }
