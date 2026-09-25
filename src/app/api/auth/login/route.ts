@@ -50,7 +50,8 @@ export async function POST(request: Request) {
       data: { session: data.session },
       error: null,
     });
-  } catch {
+  } catch (error) {
+    console.error("Login error:", error);
     return NextResponse.json(
       {
         success: false,

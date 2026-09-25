@@ -72,25 +72,47 @@ export async function POST(request: Request) {
 
     const admin = createAdminClient();
     const username = createUsername(parsed.data.fullName, authData.user.id);
-    const { error: profileError } = await admin.from("profiles").upsert({
-      id: authData.user.id,
-      full_name: parsed.data.fullName,
-      username,
-    }, { onConflict: "id" });
+
+    const { error: profileError } = await admin
+      .from("profiles")
+      .update({ full_name: parsed.data.fullName, username })
+      .eq("id", authData.user.id);
 
     if (profileError) {
-      await admin.auth.admin.deleteUser(authData.user.id);
-      return NextResponse.json(
-        {
-          success: false,
-          data: null,
-          error: {
-            code: "PROFILE_CREATION_FAILED",
-            message: "Your account could not be finished. Apply the Supabase migration, then try again.",
+      if (profileError.code === "23505") {
+        const fallbackUsername = `student-${authData.user.id.replaceAll("-", "").slice(0, 12)}`;
+        const { error: fallbackError } = await admin
+          .from("profiles")
+          .update({ full_name: parsed.data.fullName, username: fallbackUsername })
+          .eq("id", authData.user.id);
+        if (fallbackError) {
+          await admin.auth.admin.deleteUser(authData.user.id);
+          return NextResponse.json(
+            {
+              success: false,
+              data: null,
+              error: {
+                code: "PROFILE_CREATION_FAILED",
+                message: "Your account could not be finished. Please try again.",
+              },
+            },
+            { status: 500 },
+          );
+        }
+      } else {
+        await admin.auth.admin.deleteUser(authData.user.id);
+        return NextResponse.json(
+          {
+            success: false,
+            data: null,
+            error: {
+              code: "PROFILE_CREATION_FAILED",
+              message: "Your account could not be finished. Please try again.",
+            },
           },
-        },
-        { status: 500 },
-      );
+          { status: 500 },
+        );
+      }
     }
 
     if (authData.session) {
@@ -118,7 +140,8 @@ export async function POST(request: Request) {
       },
       error: null,
     });
-  } catch {
+  } catch (error) {
+    console.error("Signup error:", error);
     return NextResponse.json(
       {
         success: false,
